@@ -120,8 +120,8 @@ class Secrets {
     const that = this;
     let skipping = false;
 
-    suite(`${title} (mock)`, function() {
-      suiteSetup(async function() {
+    describe(`${title} (mock)`, () => {
+      beforeAll(async function() {
         skipping = false;
         await that.setup();
         that.load.save();
@@ -138,13 +138,13 @@ class Secrets {
 
       fn.call(this, true, () => skipping);
 
-      suiteTeardown(function() {
+      afterAll(function() {
         that.load.restore();
       });
     });
 
-    suite(`${title} (real)`, function() {
-      suiteSetup(async function() {
+    describe(`${title} (real)`, () => {
+      beforeAll(async function() {
         await that.setup();
         that.load.save();
 
@@ -154,7 +154,7 @@ class Secrets {
             throw new Error(`secrets missing and NO_TEST_SKIP is set: ${missing.join(' ')}`);
           }
           skipping = true;
-          this.skip();
+          describe.skip();
         } else {
           skipping = false;
         }
@@ -172,7 +172,7 @@ class Secrets {
 
       fn.call(this, false, () => skipping);
 
-      suiteTeardown(function() {
+      afterAll(function() {
         that.load.restore();
       });
     });

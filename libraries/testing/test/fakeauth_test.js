@@ -38,12 +38,12 @@ builder.declare({
   }
 });
 
-suite('fakeauth', function() {
+describe('fakeauth', () => {
   const rootUrl = 'http://localhost:1208';
   var fakeauth = require('../src/fakeauth');
   var server;
 
-  suiteSetup(async function() {
+  beforeAll(async function() {
     const schemaset = new SchemaSet({
       rootUrl,
       serviceName: 'lib-testing',
@@ -71,11 +71,11 @@ suite('fakeauth', function() {
     server.setTimeout(500);
   });
 
-  suiteTeardown(function() {
+  afterAll(function() {
     return server.terminate();
   });
 
-  teardown(function() {
+  afterEach(() => {
     fakeauth.stop();
   });
 
@@ -115,7 +115,7 @@ suite('fakeauth', function() {
     ]);
   };
 
-  test('using a rawClientId', function() {
+  test('using a rawClientId', () => {
     fakeauth.start({client1: ['test.scope']}, {rootUrl});
     return callApi('client1').then(function(responses) {
       for (var res of responses) {
@@ -124,7 +124,7 @@ suite('fakeauth', function() {
     });
   });
 
-  test('using an unconfigured rawClientId', function() {
+  test('using an unconfigured rawClientId', () => {
     fakeauth.start({client1: ['test.scope']}, {rootUrl});
     return callApi('unconfiguredClient')
       .then(() => {assert(false, 'should have failed');})
@@ -133,7 +133,7 @@ suite('fakeauth', function() {
       });
   });
 
-  test('using authorizedScopes', function() {
+  test('using authorizedScopes', () => {
     fakeauth.start({client1: ['some.other.scope']}, {rootUrl});
     return callApi('client1', {
       authorizedScopes: ['test.scope'],
@@ -144,7 +144,7 @@ suite('fakeauth', function() {
     });
   });
 
-  test('using temp creds', function() {
+  test('using temp creds', () => {
     fakeauth.start({client1: ['some.other.scope']}, {rootUrl});
     var tempCreds = taskcluster.createTemporaryCredentials({
       scopes: ['test.scope'],

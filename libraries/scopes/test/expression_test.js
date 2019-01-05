@@ -1,7 +1,7 @@
 const assert = require('assert');
 const utils = require('../src/expressions.js');
 
-suite('scope expression validity:', function() {
+describe('scope expression validity:', () => {
 
   function scenario(expr, shouldFail=false) {
     return () => {
@@ -24,7 +24,10 @@ suite('scope expression validity:', function() {
   test('array is not OK', scenario([], 'should-fail'));
   test('int is not OK', scenario(12, 'should-fail'));
   test('wrong key is not OK', scenario({Foo: ['abc']}, 'should-fail'));
-  test('multiple keys is not OK', scenario({AnyOf: ['abc'], AllOf: ['abc']}, 'should-fail'));
+  test(
+    'multiple keys is not OK',
+    scenario({AnyOf: ['abc'], AllOf: ['abc']}, 'should-fail')
+  );
   test('int value is not OK', scenario({AnyOf: 1}, 'should-fail'));
   test('string value is not OK', scenario({AnyOf: 'scope:bar'}, 'should-fail'));
   test('object value is not OK', scenario({AnyOf: {}}, 'should-fail'));
@@ -47,7 +50,7 @@ suite('scope expression validity:', function() {
   });
 });
 
-suite('scope expression satisfaction:', function() {
+describe('scope expression satisfaction:', () => {
 
   function scenario(scopes, expr, shouldFail=false) {
     return () => {
@@ -80,7 +83,10 @@ suite('scope expression satisfaction:', function() {
     [['abc:def'], {AnyOf: ['abc', 'def']}],
     [['xyz', 'abc'], {AllOf: [{AnyOf: [{AllOf: ['foo']}, {AllOf: ['bar']}]}]}],
   ].forEach(([s, e]) => {
-    test(`${JSON.stringify(e)} is _not_ satisfied by ${JSON.stringify(s)}`, scenario(s, e, 'should-fail'));
+    test(
+      `${JSON.stringify(e)} is _not_ satisfied by ${JSON.stringify(s)}`,
+      scenario(s, e, 'should-fail')
+    );
   });
 
   // The following should succeed
@@ -96,12 +102,15 @@ suite('scope expression satisfaction:', function() {
     [['abc*', 'def*'], {AnyOf: ['abc', 'def']}],
     [['foo'], {AllOf: [{AnyOf: [{AllOf: ['foo']}, {AllOf: ['bar']}]}]}],
   ].forEach(([s, e]) => {
-    test(`${JSON.stringify(e)} is satisfied by ${JSON.stringify(s)}`, scenario(s, e));
+    test(
+      `${JSON.stringify(e)} is satisfied by ${JSON.stringify(s)}`,
+      scenario(s, e)
+    );
   });
 
 });
 
-suite('scope expression failure explanation:', function() {
+describe('scope expression failure explanation:', () => {
 
   function scenario(scopes, expr, explanation) {
     return () => {
@@ -125,7 +134,9 @@ suite('scope expression failure explanation:', function() {
       {AnyOf: ['foo', 'bar']},
     ],
   ].forEach(([s, e, expl]) => {
-    test(`Given ${JSON.stringify(s)}, ${JSON.stringify(e)} is explained by ${JSON.stringify(expl)}}`,
-      scenario(s, e, expl));
+    test(
+      `Given ${JSON.stringify(s)}, ${JSON.stringify(e)} is explained by ${JSON.stringify(expl)}}`,
+      scenario(s, e, expl)
+    );
   });
 });

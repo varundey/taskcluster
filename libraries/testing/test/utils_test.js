@@ -1,8 +1,8 @@
 const libTesting = require('../');
 const assert = require('assert');
 
-suite('testing (utilities)', function() {
-  test('sleep', async function() {
+describe('testing (utilities)', () => {
+  test('sleep', async () => {
     const start = new Date().getTime();
     await libTesting.sleep(10);
     const end = new Date().getTime();
@@ -23,13 +23,13 @@ suite('testing (utilities)', function() {
     };
   };
 
-  test('poll (success)', async function() {
+  test('poll (success)', async () => {
     const poll = pollFunc();
     await libTesting.poll(poll, 4, 5);
     assert.equal(countDown, 0);
   });
 
-  test('poll (too-few iterations)', async function() {
+  test('poll (too-few iterations)', async () => {
     const poll = pollFunc();
     try {
       await libTesting.poll(poll, 3, 5);

@@ -1,9 +1,9 @@
-suite('normalize', () => {
+describe('normalize', () => {
   const utils = require('../src');
   const assert = require('assert');
   const _ = require('lodash');
 
-  suite('scope comparing', function() {
+  describe('scope comparing', () => {
     const cmp = (a, b) => {
       if (a < b) {
         return -1;
@@ -87,7 +87,7 @@ suite('normalize', () => {
     });
   });
 
-  suite('scope sorting', function() {
+  describe('scope sorting', () => {
     const testSortScopes = ({title, scopes, expected, N}) => {
       title = title || 'sort scopes ' + scopes.join(',');
       test(title, () => {
@@ -181,32 +181,32 @@ suite('normalize', () => {
     });
   });
 
-  suite('normalizeScopeSet', function() {
-    test('empty set', function() {
+  describe('normalizeScopeSet', () => {
+    test('empty set', () => {
       assert.deepEqual([],
         utils.normalizeScopeSet([]));
     });
 
-    test('already normalized', function() {
+    test('already normalized', () => {
       assert.deepEqual(['a*', 'b*'],
         utils.normalizeScopeSet(['a*', 'b*']));
     });
 
-    test('not normalized', function() {
+    test('not normalized', () => {
       const unnormalized = ['abc', 'abx*', 'ab*', 'b', 'b*'];
       unnormalized.sort(utils.scopeCompare);
       assert.deepEqual(['ab*', 'b*'],
         utils.normalizeScopeSet(unnormalized));
     });
 
-    test('not normalized, contains duplicates', function() {
+    test('not normalized, contains duplicates', () => {
       const unnormalized = ['abc', 'abx*', 'ab*', 'b', 'b*', 'abc*'];
       unnormalized.sort(utils.scopeCompare);
       assert.deepEqual(['ab*', 'b*'],
         utils.normalizeScopeSet(unnormalized));
     });
 
-    test('not normalized, contains lots of duplicates', function() {
+    test('not normalized, contains lots of duplicates', () => {
       const unnormalized = ['abc', 'abx*', 'ab*', 'b', 'b*', 'abc*', 'b*',
         'b*', 'b*', 'b*'];
       unnormalized.sort(utils.scopeCompare);
@@ -215,7 +215,7 @@ suite('normalize', () => {
     });
   });
 
-  suite('scopeset merging', function() {
+  describe('scopeset merging', () => {
     const testMergeScopeSets = (title, {scopesA, scopesB, expected, N}) => {
       test('mergeScopeSets (' + title + ')', () => {
         _.range(N || 50).forEach(() => {

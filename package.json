@@ -43,8 +43,9 @@
     "fs-extra": "^7.0.1",
     "got": "^9.5.0",
     "http-proxy": "^1.17.0",
-    "intercept-stdout": "^0.1.2",
     "is-uuid": "^1.0.2",
+    "jest": "^23.6.0",
+    "jest-expect-message": "^1.0.2",
     "js-yaml": "^3.12.1",
     "json-e": "^2.7.1",
     "json-stable-stringify": "^1.0.1",
@@ -82,7 +83,7 @@
   "scripts": {
     "lint": "eslint --cache --ext js libraries services infrastructure",
     "test": "yarn workspaces run test",
-    "test:meta": "mocha test/*_test.js"
+    "test:meta": "jest test/*"
   },
   "renovate": {
     "extends": [

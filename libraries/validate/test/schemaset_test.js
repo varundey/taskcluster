@@ -3,7 +3,7 @@ const SchemaSet = require('../');
 const _ = require('lodash');
 const libUrls = require('taskcluster-lib-urls');
 
-suite('schemaset_test.js', () => {
+describe('schemaset_test.js', () => {
   const rootUrl = libUrls.testRootUrl();
 
   const makeSchemaSet = () => {
@@ -48,17 +48,20 @@ suite('schemaset_test.js', () => {
     }
   });
 
-  test('invalid schema containing a default for an array throws error', async () => {
-    try {
-      new SchemaSet({
-        folder: 'test/invalid-schemas/default-array-obj',
-        serviceName: 'whatever',
-      });
-      assert(false, 'Bad schema should\'ve thrown an exception!');
-    } catch (e) {
-      if (!e.toString().match(/While loading default-array-obj-schema.json: schema is invalid:/)) {
-        throw e;
+  test(
+    'invalid schema containing a default for an array throws error',
+    async () => {
+      try {
+        new SchemaSet({
+          folder: 'test/invalid-schemas/default-array-obj',
+          serviceName: 'whatever',
+        });
+        assert(false, 'Bad schema should\'ve thrown an exception!');
+      } catch (e) {
+        if (!e.toString().match(/While loading default-array-obj-schema.json: schema is invalid:/)) {
+          throw e;
+        }
       }
     }
-  });
+  );
 });

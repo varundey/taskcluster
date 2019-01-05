@@ -1,4 +1,4 @@
-suite('config', function() {
+describe('config', () => {
   var config = require('../');
   var path = require('path');
   var assume = require('assume');

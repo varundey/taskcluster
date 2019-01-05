@@ -4,7 +4,7 @@ const {makeSerializable, fromSerializable} = require('../src/serializable');
 const {getCommonSchemas} = require('../src/common-schemas');
 const libUrls = require('taskcluster-lib-urls');
 
-suite('serializable_test.js', function() {
+describe('serializable_test.js', () => {
   const rootUrl = libUrls.testRootUrl();
   const legacyRootUrl = 'https://taskcluster.net';
 
@@ -61,7 +61,7 @@ suite('serializable_test.js', function() {
     });
   };
 
-  test('generates an abstract manifest', function() {
+  test('generates an abstract manifest', () => {
     const serializable = makeSerializable({references});
     assert_file(serializable, 'references/manifest.json', {
       $schema: '/schemas/common/manifest-v3.json#',
@@ -72,7 +72,7 @@ suite('serializable_test.js', function() {
     });
   });
 
-  test('generates an absolute manifest', function() {
+  test('generates an absolute manifest', () => {
     const serializable = makeSerializable({references: references.asAbsolute(rootUrl)});
     assert_file(serializable, 'references/manifest.json', {
       $schema: rootUrl + '/schemas/common/manifest-v3.json#',
@@ -83,7 +83,7 @@ suite('serializable_test.js', function() {
     });
   });
 
-  test('generates an absolute manifest for legacy rootUrl', function() {
+  test('generates an absolute manifest for legacy rootUrl', () => {
     const serializable = makeSerializable({references: references.asAbsolute(legacyRootUrl)});
     assert_file(serializable, 'references/manifest.json', {
       $schema: 'https://schemas.taskcluster.net/common/manifest-v3.json#',
@@ -94,7 +94,7 @@ suite('serializable_test.js', function() {
     });
   });
 
-  test('generates abstract schema filenames', function() {
+  test('generates abstract schema filenames', () => {
     const serializable = makeSerializable({references});
     assert_file(serializable, 'schemas/common/api-reference-v0.json', content => {
       assert.equal(content.$schema, '/schemas/common/metadata-metaschema.json#');
@@ -102,7 +102,7 @@ suite('serializable_test.js', function() {
     });
   });
 
-  test('generates absolute schema filenames', function() {
+  test('generates absolute schema filenames', () => {
     const serializable = makeSerializable({references: references.asAbsolute(rootUrl)});
     assert_file(serializable, 'schemas/common/api-reference-v0.json', content => {
       assert.equal(content.$schema, rootUrl + '/schemas/common/metadata-metaschema.json#');
@@ -110,7 +110,7 @@ suite('serializable_test.js', function() {
     });
   });
 
-  test('generates absolute schema filenames for legacy rootUrl', function() {
+  test('generates absolute schema filenames for legacy rootUrl', () => {
     const serializable = makeSerializable({references: references.asAbsolute(legacyRootUrl)});
     assert_file(serializable, 'schemas/common/api-reference-v0.json', content => {
       assert.equal(content.$schema, 'https://schemas.taskcluster.net/common/metadata-metaschema.json#');
@@ -118,7 +118,7 @@ suite('serializable_test.js', function() {
     });
   });
 
-  test('generates an API reference filename', function() {
+  test('generates an API reference filename', () => {
     const serializable = makeSerializable({references});
     assert_file(serializable, 'references/test/v1/api.json', {
       $schema: '/schemas/common/api-reference-v0.json#',
@@ -130,7 +130,7 @@ suite('serializable_test.js', function() {
     });
   });
 
-  test('generates an exchanges reference filename', function() {
+  test('generates an exchanges reference filename', () => {
     const serializable = makeSerializable({references});
     assert_file(serializable, 'references/test2/v2/exchanges.json', {
       $schema: '/schemas/common/exchanges-reference-v0.json#',
@@ -143,7 +143,7 @@ suite('serializable_test.js', function() {
     });
   });
 
-  test('References.fromSerializable', function() {
+  test('References.fromSerializable', () => {
     const unserialized = References.fromSerializable({
       serializable: [{
         filename: 'schemas/common/foo.json',

@@ -4,12 +4,12 @@ const References = require('..');
 const {readUriStructured, writeUriStructured} = require('../src/uri-structured');
 const mockFs = require('mock-fs');
 
-suite('uri-structured_test.js', function() {
-  teardown(function() {
+describe('uri-structured_test.js', () => {
+  afterEach(() => {
     mockFs.restore();
   });
 
-  test('writes files', function() {
+  test('writes files', () => {
     mockFs({});
 
     // write some data to check later that it's deleted
@@ -29,7 +29,7 @@ suite('uri-structured_test.js', function() {
     assert.equal(fs.readFileSync('/refdata/abc.json'), '"abc"');
   });
 
-  test('reads files', function() {
+  test('reads files', () => {
     mockFs({
       '/data/schemas/common/foo.json': '{"foo": "true"}',
       '/data/references/something/bar.json': '{"bar": "true"}',
@@ -44,7 +44,7 @@ suite('uri-structured_test.js', function() {
     }]);
   });
 
-  test('fromUriStructured', function() {
+  test('fromUriStructured', () => {
     mockFs({
       '/data/schemas/common/foo.json':
         '{"foo": "true", "$id": "/schemas/common/foo.json", "$schema": "http://json-schema.org/draft-06/schema#"}',

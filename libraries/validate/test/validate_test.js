@@ -1,4 +1,4 @@
-suite('Valid Schema Tests', () => {
+describe('Valid Schema Tests', () => {
   const assert = require('assert');
   const SchemaSet = require('../');
   const debug = require('debug')('test');
@@ -9,7 +9,7 @@ suite('Valid Schema Tests', () => {
 
   let validate = null;
 
-  suiteSetup(async () => {
+  beforeAll(async () => {
     const schemaset = new SchemaSet({
       folder: 'test/schemas',
       serviceName: 'whatever',

@@ -1,4 +1,4 @@
-suite('Publish Tests', () => {
+describe('Publish Tests', () => {
   let assert = require('assert');
   let SchemaSet = require('../');
   let awsMock = require('mock-aws-s3');
@@ -11,7 +11,7 @@ suite('Publish Tests', () => {
   let s3 = null;
   let mockdir = path.join(os.tmpdir(), 'tc-lib-validate', 'buckets');
 
-  before(async () => {
+  beforeAll(async () => {
     debug('Using tmpdir: ' + mockdir);
     awsMock.config.basePath = mockdir;
     rimraf.sync(mockdir);
@@ -34,7 +34,7 @@ suite('Publish Tests', () => {
     await schemaset.validator(libUrls.testRootUrl());
   });
 
-  after(() => {
+  afterAll(() => {
     rimraf.sync(mockdir);
   });
 

@@ -6,10 +6,10 @@ const {makeSerializable} = require('../src/serializable');
 const mockFs = require('mock-fs');
 const References = require('..');
 
-suite('references_test.js', function() {
+describe('references_test.js', () => {
   const rootUrl = libUrls.testRootUrl();
 
-  teardown(function() {
+  afterEach(() => {
     mockFs.restore();
   });
 
@@ -18,13 +18,13 @@ suite('references_test.js', function() {
     references: [],
   });
 
-  test('getSchema', function() {
+  test('getSchema', () => {
     assert.equal(
       references.getSchema('/schemas/common/manifest-v3.json#').$id,
       '/schemas/common/manifest-v3.json#');
   });
 
-  test('fromService', function() {
+  test('fromService', () => {
     // mock APIBuilder from taskcluster-lib-api
     const builder = {
       reference() {
@@ -56,13 +56,13 @@ suite('references_test.js', function() {
     assert(references.schemas.some(s => s.content.$id === 'somefile.json#'));
   });
 
-  test('makeSerializable', function() {
+  test('makeSerializable', () => {
     assert.deepEqual(
       references.makeSerializable(),
       makeSerializable({references}));
   });
 
-  test('writes uri-structured', function() {
+  test('writes uri-structured', () => {
     mockFs({});
     const references = new References({
       references: [],
@@ -86,12 +86,12 @@ suite('references_test.js', function() {
     });
   });
 
-  test('empty references pass validation', function() {
+  test('empty references pass validation', () => {
     const references = new References({references: [], schemas: []});
     references.validate();
   });
 
-  test('bogus references fail validation', function() {
+  test('bogus references fail validation', () => {
     const references = new References({references: [], schemas: [
       {filename: 'bogus.json', content: {}},
     ]});

@@ -1,37 +1,37 @@
 const assert = require('assert');
 const utils = require('../src');
 
-suite('sets', function() {
-  suite('scopeUnion', () => {
+describe('sets', () => {
+  describe('scopeUnion', () => {
     const testScopeUnion = (scope1, scope2, expected, message) => {
       assert.deepEqual(utils.scopeUnion(scope1, scope2).sort(), expected.sort(), message);
       assert.deepEqual(utils.scopeUnion(scope2, scope1).sort(), expected.sort(), message);
     };
 
-    test('same, normalized scopeset', function() {
+    test('same, normalized scopeset', () => {
       const scopes = ['abc', 'd*', 'xyzb*'];
       testScopeUnion(scopes, scopes, scopes);
     });
 
-    test('same, non-normalized scopeset', function() {
+    test('same, non-normalized scopeset', () => {
       const scopes = ['abc', 'a*', 'd*', 'xyzb*'];
       testScopeUnion(scopes, scopes, ['a*', 'd*', 'xyzb*']);
     });
 
-    test('non-overlapping scopesets', function() {
+    test('non-overlapping scopesets', () => {
       testScopeUnion(['a*'], ['b*'], ['a*', 'b*']);
     });
 
-    test('overlapping scopesets', function() {
+    test('overlapping scopesets', () => {
       testScopeUnion(['a*'], ['abc', 'd'], ['a*', 'd']);
     });
 
-    test('two non-overlapping, non-normalized scopesets', function() {
+    test('two non-overlapping, non-normalized scopesets', () => {
       testScopeUnion(['a', 'a*', 'abc', 'abc*'], ['def', 'd*', 'defg*'], ['a*', 'd*']);
     });
   });
 
-  suite('scopeIntersection', () => {
+  describe('scopeIntersection', () => {
     const testScopeIntersection = (scope1, scope2, expected, message) => {
       assert.deepEqual(utils.scopeIntersection(scope1, scope2).sort(), expected.sort(), message);
       assert.deepEqual(utils.scopeIntersection(scope2, scope1).sort(), expected.sort(), message);

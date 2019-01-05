@@ -31,14 +31,14 @@ var schemas = function(options) {
   assert(options.serviceName);
 
   let validate;
-  setup(async function() {
+  beforeEach(async () => {
     const schemaset = new SchemaSet(options.schemasetOptions);
     validate = await schemaset.validator(libUrls.testRootUrl());
   });
 
   // Create test cases
   options.cases.forEach(function(testCase) {
-    test(testCase.path, function() {
+    test(testCase.path, () => {
       // Load test data
       var filePath = testCase.path;
       // Prefix with basePath if a basePath is given

@@ -6,7 +6,7 @@ const {makeSerializable} = require('../src/serializable');
 const mockFs = require('mock-fs');
 const References = require('..');
 
-suite('action_schema_test.js', function() {
+describe('action_schema_test.js', () => {
   const rootUrl = libUrls.testRootUrl();
 
   const references = new References({
@@ -33,7 +33,7 @@ suite('action_schema_test.js', function() {
     }
   };
 
-  test('empty list is OK', function() {
+  test('empty list is OK', () => {
     validate({
       version: 1,
       variables: {},
@@ -41,7 +41,7 @@ suite('action_schema_test.js', function() {
     });
   });
 
-  test('action with bogus kind fails', function() {
+  test('action with bogus kind fails', () => {
     validateFails({
       version: 1,
       variables: {},
@@ -51,7 +51,7 @@ suite('action_schema_test.js', function() {
     });
   });
 
-  test('task kind is OK', function() {
+  test('task kind is OK', () => {
     validate({
       version: 1,
       variables: {},
@@ -67,7 +67,7 @@ suite('action_schema_test.js', function() {
     });
   });
 
-  test('hook kind is OK', function() {
+  test('hook kind is OK', () => {
     validate({
       version: 1,
       variables: {},
@@ -85,7 +85,7 @@ suite('action_schema_test.js', function() {
     });
   });
 
-  test('action.extra is allowed', function() {
+  test('action.extra is allowed', () => {
     validate({
       version: 1,
       variables: {},

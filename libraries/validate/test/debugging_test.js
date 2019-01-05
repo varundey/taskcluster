@@ -1,33 +1,11 @@
-suite('Debugging Tests', () => {
+describe('Debugging Tests', () => {
   let assert = require('assert');
   let SchemaSet = require('../');
   let rimraf = require('rimraf');
   let fs = require('fs');
-  let intercept = require('intercept-stdout');
   let libUrls = require('taskcluster-lib-urls');
 
-  test('preview previews', async function() {
-    let stdout = '';
-    const unhook = intercept(txt => {
-      stdout += txt;
-      return '';
-    });
-    try {
-      const schemaset = new SchemaSet({
-        folder: 'test/publish-schemas',
-        serviceName: 'whatever',
-        constants: {'my-constant': 42},
-        preview: true,
-      });
-      await schemaset.validator(libUrls.testRootUrl());
-    } finally {
-      unhook();
-    }
-
-    assert(/JSON SCHEMA PREVIEW BEGIN:/.test(stdout));
-  });
-
-  test('writeFile writes files', async function() {
+  test('writeFile writes files', async () => {
     try {
       const schemaset = new SchemaSet({
         folder: 'test/publish-schemas',
