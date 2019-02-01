@@ -763,6 +763,9 @@ builder.declare({
         },
       });
 
+      console.log('DEBUGGING INFORMATION: ');
+      console.dir(headRes);
+
       if (headRes.statusCode >= 300 || headRes.statusCode < 200) {
         return res.reportError('InternalServerError', [
           `When attempting to do a HEAD request for the uploaded artifact ${url}`,
