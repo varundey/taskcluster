@@ -57,7 +57,7 @@ class DependencyResolver {
           loops.push(this._pollResolvedTasks());
         }
         await Promise.all(loops);
-      }
+      },
     });
   }
 
