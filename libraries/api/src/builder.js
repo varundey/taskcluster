@@ -25,6 +25,7 @@ const ping = {
     'This endpoint is used to check that the service is up.',
   ].join('\n'),
   handler: function(req, res) {
+    throw new Error('whattt?');
     res.status(200).json({
       alive: true,
       uptime: process.uptime(),
