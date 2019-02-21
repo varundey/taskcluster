@@ -313,3 +313,5 @@ This function will:
  * shut down and flush monitoring
  * call `process.exit` on success or failure
 Note, then, that the function **does not return**.
+
+bump
