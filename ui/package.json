@@ -117,7 +117,7 @@
     "mocha": "^5.2.0",
     "neutrino": "9.0.0-beta.1",
     "node-fetch": "^2.2.0",
-    "react-styleguidist": "^7.3.11",
+    "react-styleguidist": "^9.0.0",
     "webpack": "^4.27.1",
     "webpack-cli": "^3.1.2",
     "webpack-dev-server": "^3.1.10"
